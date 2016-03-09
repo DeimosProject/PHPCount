@@ -27,32 +27,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../phpcount/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42728904">
-              <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+            <state vertical-scroll-proportion="-10.461538">
+              <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Models.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../phpcount/classes/Deimos/Models.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.1923075">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PHPCount.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PHPCount.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../phpcount/classes/Deimos/PHPCount.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.230769">
-              <caret line="285" column="37" selection-start-line="285" selection-start-column="20" selection-end-line="285" selection-end-column="37" />
+            <state vertical-scroll-proportion="-0.4344704">
+              <caret line="245" column="0" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
               <folding>
+                <element signature="e#690#1210#0#PHP" expanded="false" />
+                <element signature="e#1331#1708#0#PHP" expanded="false" />
                 <element signature="e#1763#1966#0#PHP" expanded="false" />
                 <element signature="e#2021#2099#0#PHP" expanded="false" />
                 <element signature="e#2149#2349#0#PHP" expanded="false" />
@@ -60,6 +52,20 @@
                 <element signature="e#2530#2700#0#PHP" expanded="false" />
                 <element signature="e#2752#2833#0#PHP" expanded="false" />
                 <element signature="e#2877#3348#0#PHP" expanded="false" />
+                <element signature="e#3392#3481#0#PHP" expanded="false" />
+                <element signature="e#3525#3615#0#PHP" expanded="false" />
+                <element signature="e#3659#3744#0#PHP" expanded="false" />
+                <element signature="e#3827#4191#0#PHP" expanded="false" />
+                <element signature="e#4232#4429#0#PHP" expanded="false" />
+                <element signature="e#4470#4663#0#PHP" expanded="false" />
+                <element signature="e#4704#5038#0#PHP" expanded="false" />
+                <element signature="e#5079#5169#0#PHP" expanded="false" />
+                <element signature="e#5210#5384#0#PHP" expanded="false" />
+                <element signature="e#5425#5513#0#PHP" expanded="false" />
+                <element signature="e#5554#5990#0#PHP" expanded="false" />
+                <element signature="e#6031#6123#0#PHP" expanded="false" />
+                <element signature="e#6164#6440#0#PHP" expanded="false" />
+                <element signature="e#6481#6571#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -86,8 +92,8 @@
         <option value="$PROJECT_DIR$/../phpcount/PHPCount.php" />
         <option value="$PROJECT_DIR$/../phpcount/composer.json" />
         <option value="$PROJECT_DIR$/../phpcount/classes/Deimos/Models.php" />
-        <option value="$PROJECT_DIR$/../phpcount/classes/Deimos/PHPCount.php" />
         <option value="$PROJECT_DIR$/../phpcount/index.php" />
+        <option value="$PROJECT_DIR$/../phpcount/classes/Deimos/PHPCount.php" />
       </list>
     </option>
   </component>
@@ -334,7 +340,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -432,22 +438,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../phpcount/classes/Deimos/PHPCount.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.230769">
-          <caret line="285" column="37" selection-start-line="285" selection-start-column="20" selection-end-line="285" selection-end-column="37" />
-          <folding>
-            <element signature="e#1763#1966#0#PHP" expanded="false" />
-            <element signature="e#2021#2099#0#PHP" expanded="false" />
-            <element signature="e#2149#2349#0#PHP" expanded="false" />
-            <element signature="e#2399#2478#0#PHP" expanded="false" />
-            <element signature="e#2530#2700#0#PHP" expanded="false" />
-            <element signature="e#2752#2833#0#PHP" expanded="false" />
-            <element signature="e#2877#3348#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../phpcount/classes/Deimos/Models.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.1923075">
@@ -458,9 +448,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../phpcount/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42728904">
-          <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+        <state vertical-scroll-proportion="-10.461538">
+          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../phpcount/classes/Deimos/PHPCount.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.4344704">
+          <caret line="245" column="0" selection-start-line="245" selection-start-column="0" selection-end-line="245" selection-end-column="0" />
+          <folding>
+            <element signature="e#690#1210#0#PHP" expanded="false" />
+            <element signature="e#1331#1708#0#PHP" expanded="false" />
+            <element signature="e#1763#1966#0#PHP" expanded="false" />
+            <element signature="e#2021#2099#0#PHP" expanded="false" />
+            <element signature="e#2149#2349#0#PHP" expanded="false" />
+            <element signature="e#2399#2478#0#PHP" expanded="false" />
+            <element signature="e#2530#2700#0#PHP" expanded="false" />
+            <element signature="e#2752#2833#0#PHP" expanded="false" />
+            <element signature="e#2877#3348#0#PHP" expanded="false" />
+            <element signature="e#3392#3481#0#PHP" expanded="false" />
+            <element signature="e#3525#3615#0#PHP" expanded="false" />
+            <element signature="e#3659#3744#0#PHP" expanded="false" />
+            <element signature="e#3827#4191#0#PHP" expanded="false" />
+            <element signature="e#4232#4429#0#PHP" expanded="false" />
+            <element signature="e#4470#4663#0#PHP" expanded="false" />
+            <element signature="e#4704#5038#0#PHP" expanded="false" />
+            <element signature="e#5079#5169#0#PHP" expanded="false" />
+            <element signature="e#5210#5384#0#PHP" expanded="false" />
+            <element signature="e#5425#5513#0#PHP" expanded="false" />
+            <element signature="e#5554#5990#0#PHP" expanded="false" />
+            <element signature="e#6031#6123#0#PHP" expanded="false" />
+            <element signature="e#6164#6440#0#PHP" expanded="false" />
+            <element signature="e#6481#6571#0#PHP" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

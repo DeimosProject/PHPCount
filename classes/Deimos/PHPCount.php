@@ -247,11 +247,30 @@ class PHPCount
     /**
      * @return int
      */
-    protected function _getTotalAllHits()
+    protected function _getTotalAllMyHits()
     {
         $hits = $this->orm()->query($this->models->hit())
             ->where($this->models->ipAddress() . 'id', $this->getIpAddressId())
             ->and($this->models->userAgent() . 'id', $this->getUserAgentId())
+            ->find();
+
+        return count($hits->asArray(true));
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalAllMyHits()
+    {
+        return $this->cache(__FUNCTION__);
+    }
+
+    /**
+     * @return int
+     */
+    protected function _getTotalAllHits()
+    {
+        $hits = $this->orm()->query($this->models->hit())
             ->find();
 
         return count($hits->asArray(true));
@@ -268,11 +287,32 @@ class PHPCount
     /**
      * @return int
      */
-    protected function _getTotalTodayHits()
+    protected function _getTotalTodayMyHits()
     {
         $hits = $this->orm()->query($this->models->hit())
             ->where($this->models->ipAddress() . 'id', $this->getIpAddressId())
             ->and($this->models->userAgent() . 'id', $this->getUserAgentId())
+            ->and('created', '>=', $this->today)
+            ->and('created', '<', $this->tomorrow)
+            ->find();
+
+        return count($hits->asArray(true));
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalTodayMyHits()
+    {
+        return $this->cache(__FUNCTION__);
+    }
+
+    /**
+     * @return int
+     */
+    protected function _getTotalTodayHits()
+    {
+        $hits = $this->orm()->query($this->models->hit())
             ->and('created', '>=', $this->today)
             ->and('created', '<', $this->tomorrow)
             ->find();
