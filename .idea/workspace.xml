@@ -30,8 +30,8 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../phpcount/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4578097">
-              <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.42728904">
+              <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -50,8 +50,8 @@
       <file leaf-file-name="PHPCount.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../phpcount/classes/Deimos/PHPCount.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.615385">
-              <caret line="257" column="5" selection-start-line="257" selection-start-column="5" selection-end-line="257" selection-end-column="5" />
+            <state vertical-scroll-proportion="-14.230769">
+              <caret line="285" column="37" selection-start-line="285" selection-start-column="20" selection-end-line="285" selection-end-column="37" />
               <folding>
                 <element signature="e#1763#1966#0#PHP" expanded="false" />
                 <element signature="e#2021#2099#0#PHP" expanded="false" />
@@ -68,8 +68,8 @@
       <file leaf-file-name="quickstart.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../phpcount/vendor/phpixie/orm/examples/quickstart.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="7.1538463">
-              <caret line="83" column="35" selection-start-line="83" selection-start-column="35" selection-end-line="83" selection-end-column="35" />
+            <state vertical-scroll-proportion="17.153847">
+              <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
               <folding>
                 <marker date="1445981709000" expanded="true" signature="554:636" placeholder="CREATE TABLE... fairies" />
                 <marker date="1445981709000" expanded="true" signature="669:774" placeholder="CREATE TABLE... flowers" />
@@ -423,8 +423,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../phpcount/vendor/phpixie/orm/examples/quickstart.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="7.1538463">
-          <caret line="83" column="35" selection-start-line="83" selection-start-column="35" selection-end-line="83" selection-end-column="35" />
+        <state vertical-scroll-proportion="17.153847">
+          <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
           <folding>
             <marker date="1445981709000" expanded="true" signature="554:636" placeholder="CREATE TABLE... fairies" />
             <marker date="1445981709000" expanded="true" signature="669:774" placeholder="CREATE TABLE... flowers" />
@@ -434,8 +434,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../phpcount/classes/Deimos/PHPCount.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.615385">
-          <caret line="257" column="5" selection-start-line="257" selection-start-column="5" selection-end-line="257" selection-end-column="5" />
+        <state vertical-scroll-proportion="-14.230769">
+          <caret line="285" column="37" selection-start-line="285" selection-start-column="20" selection-end-line="285" selection-end-column="37" />
           <folding>
             <element signature="e#1763#1966#0#PHP" expanded="false" />
             <element signature="e#2021#2099#0#PHP" expanded="false" />
@@ -458,8 +458,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../phpcount/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4578097">
-          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.42728904">
+          <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
           <folding />
         </state>
       </provider>
