@@ -35,6 +35,9 @@ class PHPCount
      */
     private $models;
 
+    private $today = 0;
+    private $tomorrow = 0;
+
     /**
      * PHPCount constructor.
      *
@@ -46,11 +49,21 @@ class PHPCount
      */
     public function __construct(array $configDB, $modelsClass = Models::class, $slice = null, $db = null, $orm = null)
     {
+
         $this->configDB = $configDB;
         $this->models = new $modelsClass;
         $this->slice = $slice;
         $this->orm = $orm;
         $this->db = $db;
+
+        $today = date('d-m-Y', time());
+
+        $datetime = new \DateTime($today);
+        $datetime->modify('+1 day');
+
+        $this->today = strtotime($today);
+        $this->tomorrow = strtotime($datetime->format('d-m-Y'));
+
     }
 
     /**
@@ -234,17 +247,20 @@ class PHPCount
     /**
      * @return int
      */
-    protected function _getTotalHits()
+    protected function _getTotalAllHits()
     {
-        $query = $this->db()->get();
+        $hits = $this->orm()->query($this->models->hit())
+            ->where($this->models->ipAddress() . 'id', $this->getIpAddressId())
+            ->and($this->models->userAgent() . 'id', $this->getUserAgentId())
+            ->find();
 
-        return 0;
+        return count($hits->asArray(true));
     }
 
     /**
      * @return int
      */
-    public function getTotalHits()
+    public function getTotalAllHits()
     {
         return $this->cache(__FUNCTION__);
     }
