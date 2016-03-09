@@ -8,7 +8,7 @@ class PHPCount
     /**
      * @var array
      */
-    private $_row = [];
+    private $_row = array();
 
     /**
      * @var array
@@ -72,7 +72,7 @@ class PHPCount
      * @param null $method
      * @return mixed
      */
-    protected function cache($key, $parameters = [], $method = null)
+    protected function cache($key, $parameters = array(), $method = null)
     {
 
         if ($method === null) {
@@ -182,6 +182,19 @@ class PHPCount
         return $this->cache(__FUNCTION__);
     }
 
+    protected function _getHostname()
+    {
+        return $_SERVER['HTTP_HOST'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getHostname()
+    {
+        return $this->cache(__FUNCTION__);
+    }
+
     /**
      * @return string
      */
@@ -199,27 +212,40 @@ class PHPCount
     }
 
     /**
+     * @return string
+     */
+    protected function _getPage()
+    {
+        return $_SERVER['REQUEST_URI'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getPage()
+    {
+        return $this->cache(__FUNCTION__);
+    }
+
+    /**
      * @param $model
      * @param $value
      * @return int
      */
     protected function _getIdDefInModel($model, $value)
     {
-
         $orm = $this->orm();
-
-        $ip = $orm->query($model)
+        $defModel = $orm->query($model)
             ->where('value', $value)
             ->findOne();
 
-        if ($ip === null) {
-            $ip = $orm->createEntity($model);
-            $ip->value = $value;
-            $ip->save();
+        if ($defModel === null) {
+            $defModel = $orm->createEntity($model);
+            $defModel->value = $value;
+            $defModel->save();
         }
 
-        return (int)$ip->id;
-
+        return (int)$defModel->id;
     }
 
     /**
@@ -227,10 +253,10 @@ class PHPCount
      */
     public function getIpAddressId()
     {
-        return $this->cache(__FUNCTION__, [
+        return $this->cache(__FUNCTION__, array(
             $this->models->ipAddress(),
             $this->getRealIpAddress()
-        ], 'getIdDefInModel');
+        ), 'getIdDefInModel');
     }
 
     /**
@@ -238,10 +264,32 @@ class PHPCount
      */
     public function getUserAgentId()
     {
-        return $this->cache(__FUNCTION__, [
+        return $this->cache(__FUNCTION__, array(
             $this->models->userAgent(),
             $this->getUserAgent()
-        ], 'getIdDefInModel');
+        ), 'getIdDefInModel');
+    }
+
+    /**
+     * @return int
+     */
+    public function getPageId()
+    {
+        return $this->cache(__FUNCTION__, array(
+            $this->models->page(),
+            $this->getPage()
+        ), 'getIdDefInModel');
+    }
+
+    /**
+     * @return int
+     */
+    public function getHostnameId()
+    {
+        return $this->cache(__FUNCTION__, array(
+            $this->models->hostname(),
+            $this->getHostname()
+        ), 'getIdDefInModel');
     }
 
     /**
@@ -252,6 +300,7 @@ class PHPCount
         $hits = $this->orm()->query($this->models->hit())
             ->where($this->models->ipAddress() . 'id', $this->getIpAddressId())
             ->and($this->models->userAgent() . 'id', $this->getUserAgentId())
+            ->and($this->models->hostname() . 'id', $this->getHostnameId())
             ->find();
 
         return count($hits->asArray(true));
@@ -271,6 +320,7 @@ class PHPCount
     protected function _getTotalAllHits()
     {
         $hits = $this->orm()->query($this->models->hit())
+            ->where($this->models->hostname() . 'id', $this->getHostnameId())
             ->find();
 
         return count($hits->asArray(true));
@@ -294,6 +344,7 @@ class PHPCount
             ->and($this->models->userAgent() . 'id', $this->getUserAgentId())
             ->and('created', '>=', $this->today)
             ->and('created', '<', $this->tomorrow)
+            ->and($this->models->hostname() . 'id', $this->getHostnameId())
             ->find();
 
         return count($hits->asArray(true));
@@ -315,6 +366,7 @@ class PHPCount
         $hits = $this->orm()->query($this->models->hit())
             ->and('created', '>=', $this->today)
             ->and('created', '<', $this->tomorrow)
+            ->and($this->models->hostname() . 'id', $this->getHostnameId())
             ->find();
 
         return count($hits->asArray(true));
@@ -326,6 +378,33 @@ class PHPCount
     public function getTotalTodayHits()
     {
         return $this->cache(__FUNCTION__);
+    }
+
+    /**
+     * @return bool
+     */
+    public function addHit()
+    {
+        $orm = $this->orm();
+        $defModel = $orm->query($this->models->hit())
+            ->where('ipaddressId', $this->getIpAddressId())
+            ->and('useragentId', $this->getUserAgentId())
+            ->and('hostnameId', $this->getHostnameId())
+            ->and('pageId', $this->getPageId())
+            ->and('created', time())
+            ->findOne();
+
+        if ($defModel === null) {
+            $hit = $orm->createEntity($this->models->hit());
+            $hit->ipaddressId = $this->getIpAddressId();
+            $hit->useragentId = $this->getUserAgentId();
+            $hit->hostnameId = $this->getHostnameId();
+            $hit->pageId = $this->getPageId();
+            $hit->created = time();
+            return (bool)$hit->save();
+        }
+
+        return false;
     }
 
 }

@@ -5,6 +5,16 @@ namespace Deimos;
 class Models
 {
 
+    public function hostname()
+    {
+        return 'hostname';
+    }
+
+    public function page()
+    {
+        return 'page';
+    }
+
     public function hit()
     {
         return 'hit';
