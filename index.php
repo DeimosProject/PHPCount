@@ -11,4 +11,5 @@ $phpCount = new \Deimos\PHPCount(array(
     )
 ));
 
-var_dump($phpCount->getRealIpAddress());
+var_dump($phpCount->getIpAddressId());
+var_dump($phpCount->getUserAgentId());

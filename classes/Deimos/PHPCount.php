@@ -31,32 +31,50 @@ class PHPCount
     private $db;
 
     /**
+     * @var Models
+     */
+    private $models;
+
+    /**
      * PHPCount constructor.
      *
      * @param array $configDB
+     * @param $modelsClass
      * @param \PHPixie\Slice|null $slice
      * @param \PHPixie\Database|null $db
      * @param \PHPixie\ORM|null $orm
      */
-    public function __construct(array $configDB, $slice = null, $db = null, $orm = null)
+    public function __construct(array $configDB, $modelsClass = Models::class, $slice = null, $db = null, $orm = null)
     {
         $this->configDB = $configDB;
+        $this->models = new $modelsClass;
         $this->slice = $slice;
         $this->orm = $orm;
         $this->db = $db;
     }
 
     /**
-     * @param $key string
+     * @param $key
      * @param array $parameters
+     * @param null $method
      * @return mixed
      */
-    protected function cache($key, $parameters = [])
+    protected function cache($key, $parameters = [], $method = null)
     {
-        if (!isset($this->_row[$key])) {
-            $this->_row[$key] = $this->{'_' . $key}($parameters);
+
+        if ($method === null) {
+            $method = $key;
         }
+
+        if (!isset($this->_row[$key])) {
+            $this->_row[$key] = call_user_func_array(
+                array($this, '_' . $method),
+                $parameters
+            );
+        }
+
         return $this->_row[$key];
+
     }
 
     /**
@@ -139,7 +157,7 @@ class PHPCount
             }
         }
 
-        return (string) $ip;
+        return (string)$ip;
 
     }
 
@@ -151,14 +169,81 @@ class PHPCount
         return $this->cache(__FUNCTION__);
     }
 
+    /**
+     * @return string
+     */
+    protected function _getUserAgent()
+    {
+        return $_SERVER['HTTP_USER_AGENT'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->cache(__FUNCTION__);
+    }
+
+    /**
+     * @param $model
+     * @param $value
+     * @return int
+     */
+    protected function _getIdDefInModel($model, $value)
+    {
+
+        $orm = $this->orm();
+
+        $ip = $orm->query($model)
+            ->where('value', $value)
+            ->findOne();
+
+        if ($ip === null) {
+            $ip = $orm->createEntity($model);
+            $ip->value = $value;
+            $ip->save();
+        }
+
+        return (int)$ip->id;
+
+    }
+
+    /**
+     * @return int
+     */
+    public function getIpAddressId()
+    {
+        return $this->cache(__FUNCTION__, [
+            $this->models->ipAddress(),
+            $this->getRealIpAddress()
+        ], 'getIdDefInModel');
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserAgentId()
+    {
+        return $this->cache(__FUNCTION__, [
+            $this->models->userAgent(),
+            $this->getUserAgent()
+        ], 'getIdDefInModel');
+    }
+
+    /**
+     * @return int
+     */
     protected function _getTotalHits()
     {
         $query = $this->db()->get();
 
-        // todo
         return 0;
     }
 
+    /**
+     * @return int
+     */
     public function getTotalHits()
     {
         return $this->cache(__FUNCTION__);
