@@ -2,13 +2,8 @@
 
 namespace Deimos;
 
-class PHPCount
+class PHPCount extends Cache
 {
-
-    /**
-     * @var array
-     */
-    private $_row = array();
 
     /**
      * @var array
@@ -35,7 +30,19 @@ class PHPCount
      */
     private $models;
 
+    /**
+     * @var Server
+     */
+    protected $server;
+
+    /**
+     * @var int
+     */
     private $today = 0;
+
+    /**
+     * @var int
+     */
     private $tomorrow = 0;
 
     /**
@@ -52,6 +59,7 @@ class PHPCount
 
         $this->configDB = $configDB;
         $this->models = new $modelsClass;
+        $this->server = new Server();
         $this->slice = $slice;
         $this->orm = $orm;
         $this->db = $db;
@@ -63,30 +71,6 @@ class PHPCount
 
         $this->today = strtotime($today);
         $this->tomorrow = strtotime($datetime->format('d-m-Y'));
-
-    }
-
-    /**
-     * @param $key
-     * @param array $parameters
-     * @param null $method
-     * @return mixed
-     */
-    protected function cache($key, $parameters = array(), $method = null)
-    {
-
-        if ($method === null) {
-            $method = $key;
-        }
-
-        if (!isset($this->_row[$key])) {
-            $this->_row[$key] = call_user_func_array(
-                array($this, '_' . $method),
-                $parameters
-            );
-        }
-
-        return $this->_row[$key];
 
     }
 
@@ -164,8 +148,8 @@ class PHPCount
         );
 
         foreach ($serverKeys as $key) {
-            if (!empty($_SERVER[$key])) {
-                $ip = $_SERVER[$key];
+            if ($this->server->get($key)) {
+                $ip = $this->server->get($key);
                 break;
             }
         }
@@ -184,7 +168,7 @@ class PHPCount
 
     protected function _getHostname()
     {
-        return $_SERVER['HTTP_HOST'];
+        return $this->server->get('HTTP_HOST');
     }
 
     /**
@@ -200,7 +184,7 @@ class PHPCount
      */
     protected function _getUserAgent()
     {
-        return $_SERVER['HTTP_USER_AGENT'];
+        return $this->server->get('HTTP_USER_AGENT');
     }
 
     /**
@@ -216,7 +200,7 @@ class PHPCount
      */
     protected function _getPage()
     {
-        return $_SERVER['REQUEST_URI'];
+        return $this->server->get('REQUEST_URI');
     }
 
     /**
@@ -297,13 +281,20 @@ class PHPCount
      */
     protected function _getTotalAllMyHits()
     {
-        $hits = $this->orm()->query($this->models->hit())
+        $connection = $this->db()->get();
+        $query = $connection->selectQuery();
+
+        $hits = $query
+            ->table($this->models->hits())
+            ->fields(array(
+                'result' => $this->db()->sqlExpression('SUM(1)')
+            ))
             ->where($this->models->ipAddress() . 'id', $this->getIpAddressId())
             ->and($this->models->userAgent() . 'id', $this->getUserAgentId())
             ->and($this->models->hostname() . 'id', $this->getHostnameId())
-            ->find();
+            ->execute();
 
-        return count($hits->asArray(true));
+        return (int)$hits->current()->result;
     }
 
     /**
@@ -319,11 +310,18 @@ class PHPCount
      */
     protected function _getTotalAllHits()
     {
-        $hits = $this->orm()->query($this->models->hit())
-            ->where($this->models->hostname() . 'id', $this->getHostnameId())
-            ->find();
+        $connection = $this->db()->get();
+        $query = $connection->selectQuery();
 
-        return count($hits->asArray(true));
+        $hits = $query
+            ->table($this->models->hits())
+            ->fields(array(
+                'result' => $this->db()->sqlExpression('SUM(1)')
+            ))
+            ->and($this->models->hostname() . 'id', $this->getHostnameId())
+            ->execute();
+
+        return (int)$hits->current()->result;
     }
 
     /**
@@ -337,17 +335,54 @@ class PHPCount
     /**
      * @return int
      */
+    protected function _getOnlineHosts()
+    {
+        $connection = $this->db()->get();
+        $query = $connection->selectQuery();
+
+        $hostsOnline = $query
+            ->table($this->models->hits())
+            ->and($this->models->hostname() . 'id', $this->getHostnameId())
+            ->and('created', '>', time() - (60 * 3))
+            ->and('created', '<=', time())
+            ->groupBy(array(
+                $this->models->ipAddress() . 'id',
+                $this->models->userAgent() . 'id'
+            ))
+            ->execute();
+
+        return count($hostsOnline->asArray());
+    }
+
+    /**
+     * @return int
+     */
+    public function getOnlineHosts()
+    {
+        return $this->cache(__FUNCTION__);
+    }
+
+    /**
+     * @return int
+     */
     protected function _getTotalTodayMyHits()
     {
-        $hits = $this->orm()->query($this->models->hit())
+        $connection = $this->db()->get();
+        $query = $connection->selectQuery();
+
+        $hits = $query
+            ->table($this->models->hits())
+            ->fields(array(
+                'result' => $this->db()->sqlExpression('SUM(1)')
+            ))
             ->where($this->models->ipAddress() . 'id', $this->getIpAddressId())
             ->and($this->models->userAgent() . 'id', $this->getUserAgentId())
             ->and('created', '>=', $this->today)
             ->and('created', '<', $this->tomorrow)
             ->and($this->models->hostname() . 'id', $this->getHostnameId())
-            ->find();
+            ->execute();
 
-        return count($hits->asArray(true));
+        return (int)$hits->current()->result;
     }
 
     /**
@@ -363,13 +398,19 @@ class PHPCount
      */
     protected function _getTotalTodayHits()
     {
-        $hits = $this->orm()->query($this->models->hit())
+        $connection = $this->db()->get();
+        $query = $connection->selectQuery();
+
+        $hits = $query
+            ->table($this->models->hits())
+            ->fields(array(
+                'result' => $this->db()->sqlExpression('SUM(1)')
+            ))
             ->and('created', '>=', $this->today)
             ->and('created', '<', $this->tomorrow)
-            ->and($this->models->hostname() . 'id', $this->getHostnameId())
-            ->find();
+            ->execute();
 
-        return count($hits->asArray(true));
+        return (int)$hits->current()->result;
     }
 
     /**
