@@ -1,0 +1,25 @@
+{
+  "name": "deimos/phpcount",
+  "keywords": [
+    "library"
+  ],
+  "homepage": "http://babichev.net/",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Maxim Babichev",
+      "email": "info@babichev.net",
+      "homepage": "http://babichev.net"
+    }
+  ],
+  "autoload": {
+    "psr-0": {
+      "Deimos": "classes/"
+    }
+  },
+  "require": {
+    "php": ">=5.6.0",
+    "phpixie/orm": "3.1.1"
+  }
+}
