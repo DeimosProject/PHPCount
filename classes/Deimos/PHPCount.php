@@ -386,12 +386,14 @@ class PHPCount
     public function addHit()
     {
         $orm = $this->orm();
+        $created = time();
+
         $defModel = $orm->query($this->models->hit())
             ->where('ipaddressId', $this->getIpAddressId())
             ->and('useragentId', $this->getUserAgentId())
             ->and('hostnameId', $this->getHostnameId())
             ->and('pageId', $this->getPageId())
-            ->and('created', time())
+            ->and('created', $created)
             ->findOne();
 
         if ($defModel === null) {
@@ -400,7 +402,7 @@ class PHPCount
             $hit->useragentId = $this->getUserAgentId();
             $hit->hostnameId = $this->getHostnameId();
             $hit->pageId = $this->getPageId();
-            $hit->created = time();
+            $hit->created = $created;
             return (bool)$hit->save();
         }
 
